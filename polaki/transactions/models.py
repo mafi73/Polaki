@@ -8,10 +8,10 @@ class Category(models.Model):
     
 class Transaction(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE)
-    amount=models.IntegerField
+    amount=models.BigIntegerField()
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     description = models.CharField(max_length=255)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField()
 
     def __str__(self):
         return f"{self.user} - {self.amount} - {self.category}"
