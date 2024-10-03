@@ -11,7 +11,7 @@ class Transaction(models.Model):
     amount=models.BigIntegerField()
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     description = models.CharField(max_length=255)
-    date = models.DateField()
+    date = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.user} - {self.amount} - {self.category}"
