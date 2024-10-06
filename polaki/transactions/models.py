@@ -17,7 +17,7 @@ class Transaction(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     description = models.CharField(max_length=255)
     date = models.DateField(auto_now_add=True)
-    transaction_type = models.CharField(max_length=10, choices=TRANSACTION_TYPE_CHOICES)
+    transaction_type = models.CharField(max_length=10, choices=[('deposit', 'Deposit'), ('withdraw', 'Withdraw')], default='withdraw')
     
     def __str__(self):
         return f"{self.wallet.user.username} - {self.amount} - {self.category} - {self.transaction_type}"
