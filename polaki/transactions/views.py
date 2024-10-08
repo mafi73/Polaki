@@ -31,3 +31,7 @@ def add_transaction(request):
         form = TransactionForm()
 
     return render(request, 'transactions/add_transaction.html', {'form': form})
+
+def transactions_list(request):
+    transactions = Transaction.objects.filter(wallet__user=request.user)
+    return render(request, 'transactions/transaction_list.html', {'transactions': transactions})
