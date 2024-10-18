@@ -1,0 +1,19 @@
+<!-- wallet/templates/wallet/dashboard.html -->
+polaki/wallet/templates/dashboard.html
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>داشبورد کیف پول</title>
+</head>
+<body>
+    <h1>داشبوردکیف پول</h1>
+    <p>موجودی: {{ wallet.balance }} تومان</p>
+    <a href="{% url 'add_transaction' %}">add tranaction</a><br><br>
+    <a href="{% url 'transaction_list' %}">View Transactions List</a><br><br>
+    <button>
+        <a href="{% url 'logout' %}">Logout</a>
+        </button>
+</body>
+</html>

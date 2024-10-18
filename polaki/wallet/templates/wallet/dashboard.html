@@ -1,5 +1,5 @@
 <!-- wallet/templates/wallet/dashboard.html -->
-
+polaki/wallet/templates/dashboard.html
 <!DOCTYPE html>
 <html lang="fa">
 <head>
@@ -10,6 +10,8 @@
 <body>
     <h1>داشبوردکیف پول</h1>
     <p>موجودی: {{ wallet.balance }} تومان</p>
-    <a href="{% url 'add_transaction' %}">add tranaction</a>
+    <a href="{% url 'add_transaction' %}">add tranaction</a><br><br>
+    
+    <a href="{% url 'transaction_list' %}">View Transactions List</a>
 </body>
 </html>
