@@ -10,10 +10,8 @@ from django.contrib.auth.decorators import login_required
 #     return render(request, 'wallets/dashboard.html', {'wallet': wallet})
 # wallet/views.py
 
-from django.views.generic import TemplateView
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
-from .models import Wallet
+
 
 class WalletDashboardView(LoginRequiredMixin, TemplateView):
     template_name = 'wallet/dashboard.html'
