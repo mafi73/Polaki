@@ -15,7 +15,7 @@ def add_transaction(request):
             transaction = form.save(commit=False)
             wallet = Wallet.objects.get(user=request.user)
 
-            if transaction.transaction_type == 'withdraw':
+            if form.cleaned_data['transaction_type'] == 'withdraw':
                 transaction.amount = -abs(transaction.amount)
                 wallet.balance += transaction.amount
             else:
@@ -34,4 +34,6 @@ def add_transaction(request):
 
 def transactions_list(request):
     transactions = Transaction.objects.filter(wallet__user=request.user)
+    for transaction in transactions:
+        transaction.display_amount = abs(transaction.amount)
     return render(request, 'transactions/transaction_list.html', {'transactions': transactions})
