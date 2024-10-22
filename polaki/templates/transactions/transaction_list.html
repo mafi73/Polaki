@@ -7,6 +7,7 @@ polaki/tempate asli/
     <title>Transaction List</title>
 </head>
 <body>
+    <h1>لیست تراکنش ها</h1>
     <table>
         <thead>
             <tr>
@@ -20,7 +21,7 @@ polaki/tempate asli/
         <tbody>
             {% for transaction in transactions %}
             <tr>
-                <td>{{ transaction.date }}</td>
+                <td>{{ transaction.jalali_date }}</td>
                 <td>{{ transaction.category }}</td>
                 <td>{{ transaction.description }}</td>
                 <td>
@@ -29,16 +30,27 @@ polaki/tempate asli/
                         (برداشت)
                     {% else %}
                         (واریز)
-                    {% endif %}</td>
+                    {% endif %}
+                    </td>
+                <td>
+                    <a href="{% url 'update_transaction' transaction.id %}">Edit</a> |
+                    <a href="{% url 'delete_transaction' transaction.id %}">Delete</a>
+
                 </td>
+                
             </tr>
         {% endfor %}
+        </tbody>
+        </table>
     <a href="{% url 'add_transaction' %}">add tranaction</a><br><br>
     <a href="{% url 'wallet_dashboard' %}">Go to Wallet Dahshoard</a><br><br>
-    <button>
+    <!-- <button>
         <a href="{% url 'logout' %}">Logout</a>
-        </button>
-
+        </button> -->
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
    
     
     

@@ -12,8 +12,12 @@ polaki/wallet/templates/dashboard.html
     <p>موجودی: {{ wallet.balance }} تومان</p>
     <a href="{% url 'add_transaction' %}">add tranaction</a><br><br>
     <a href="{% url 'transaction_list' %}">View Transactions List</a><br><br>
-    <button>
+    <!-- <button>
         <a href="{% url 'logout' %}">Logout</a>
-        </button>
+        </button> -->
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
 </body>
 </html>

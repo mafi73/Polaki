@@ -18,14 +18,14 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from django.urls import include, path
+from django.contrib.auth import logout
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', auth_views.LoginView.as_view(), name='login'),
-    path('', auth_views.LogoutView.as_view(), name='logout'),
+    path('', auth_views.LoginView.as_view(redirect_authenticated_user=True), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('wallet/', include('wallet.urls')),
     path('transactions/', include('transactions.urls')),
-    path('signup/', include('users.urls'))
-    # path('signup/', auth_views.LoginView.as_view(), name='signup'),
-
-]
+    path('signup/', include('users.urls')),
+    
+    ]

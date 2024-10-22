@@ -1,0 +1,8 @@
+
+  <h2>Edit Transaction</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save changes</button>
+  </form>
+  <a href="{% url 'transaction_list' %}">Back to transactions list</a>

@@ -1,9 +1,10 @@
 from django import forms
 from .models import Transaction
+
 class TransactionForm(forms.ModelForm):
     TRANSACTION_CHOICES = [
-        ('deposit', 'Deposit'),  
-        ('withdraw', 'Withdraw'),  
+        ('deposit', 'واریز'),  
+        ('withdraw', 'برداشت'),  
     ]
 
     transaction_type = forms.ChoiceField(choices=TRANSACTION_CHOICES, label="Transaction Type")

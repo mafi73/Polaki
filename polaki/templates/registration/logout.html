@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+Polaki/templates/registration/login.html
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>logout</title>
+</head>
+<body>
+    <h2>you are loged out</h2>
+        {% csrf_token %}
+    
+        <button>
+        <a href="{% url 'login' %}">login</a>
+        </button>
+        
+    </form>
+</body>
+</html>
