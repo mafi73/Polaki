@@ -1,23 +1,28 @@
-<!-- wallet/templates/wallet/dashboard.html -->
-polaki/wallet/templates/dashboard.html
 <!DOCTYPE html>
 <html lang="fa">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>داشبورد کیف پول</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>داشبوردکیف پول</h1>
-    <p>موجودی: {{ wallet.balance }} تومان</p>
-    <a href="{% url 'add_transaction' %}">add tranaction</a><br><br>
-    <a href="{% url 'transaction_list' %}">View Transactions List</a><br><br>
-    <!-- <button>
-        <a href="{% url 'logout' %}">Logout</a>
-        </button> -->
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Logout</button>
-        </form>
+<body class="bg-light d-flex justify-content-center align-items-center" style="height: 100vh; direction: rtl;">
+    <div class="container">
+        <div class="card shadow-sm p-4">
+            <h1 class="text-center mb-4">داشبورد کیف پول</h1>
+            <p class="text-center">موجودی: <strong>{{ wallet.balance }}</strong> تومان</p>
+            <div class="d-grid gap-2">
+                <a href="{% url 'add_transaction' %}" class="btn btn-success">افزودن تراکنش</a>
+                <a href="{% url 'transaction_list' %}" class="btn btn-info">مشاهده لیست تراکنش‌ها</a>
+            </div>
+            <form action="{% url 'logout' %}" method="post" class="mt-4">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger w-100">خروج</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

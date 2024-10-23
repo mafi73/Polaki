@@ -1,21 +1,28 @@
 <!DOCTYPE html>
-Polaki/templates/registration/login.html
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <h2>Login</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
-        <button>
-        <a href="{% url 'signup' %}">Signup</a>
-        </button>
-        
-    </form>
+<body class="d-flex justify-content-center align-items-center" style="height: 100vh; background-color: #9fc6ec;">
+    <div class="card shadow-sm p-4" style="width: 100%; max-width: 400px;">
+        <h2 class="text-center mb-4">ورود به داشبورد کیف پول</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form.as_p }}
+            </div>
+            <div class="d-grid mb-3">
+                <button type="submit" class="btn btn-primary">ورود</button>
+            </div>
+            <div class="text-center">
+                <p>اکانت ندارید؟ <a href="{% url 'signup' %}">ثبت نام</a></p>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

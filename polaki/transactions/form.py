@@ -7,8 +7,14 @@ class TransactionForm(forms.ModelForm):
         ('withdraw', 'برداشت'),  
     ]
 
-    transaction_type = forms.ChoiceField(choices=TRANSACTION_CHOICES, label="Transaction Type")
+    transaction_type = forms.ChoiceField(choices=TRANSACTION_CHOICES, label="نوع تراکنش")
     
     class Meta:
         model = Transaction
-        fields = ['amount', 'category', 'description' , 'transaction_type'] #'transaction_type'
+        fields = ['amount', 'category', 'description' , 'transaction_type'] 
+        labels = {
+            'amount' : 'مبلغ',
+            'category' : 'دسته بندی',
+            'description' : 'توضیحات',
+            'transaction_type' : 'نوع تراکنش',
+        }

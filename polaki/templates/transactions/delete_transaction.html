@@ -1,16 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>حذف تراکنش</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRgLLaNk5D33K5qbf8OnlshdAb1OCzRdPUNaeE9FZ" crossorigin="anonymous">
+    <style>
+        body {
+            direction: rtl; 
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 100px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-danger {
+            margin-right: 10px;
+        }
+        a {
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>آیا از پاک کردن تراکنش اطمینان دارید؟</h1>
-     <form method="post">
-    {% csrf_token %}
-    <button type="submit">Yes, delete</button>
-  </form>
-  <a href="{% url 'transaction_list' %}">No, go back to list</a>
+    <div class="container text-center">
+        <h1 class="mb-4">آیا از پاک کردن تراکنش اطمینان دارید؟</h1>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">بله، حذف شود</button>
+            <a href="{% url 'transaction_list' %}" class="btn btn-secondary">خیر، بازگشت به لیست</a>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-4Ug9bYQ7B1qUze4AXtXUhtcdIWPqGh73gXn5IA5PUeCHpM/T2OlZWh0RMXbDvS4K" crossorigin="anonymous"></script>
 </body>
 </html>
