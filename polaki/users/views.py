@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from .forms import UserSignUpForm
-from django.contrib.auth import logout
+
 
 def signup_view(request):
     if request.user.is_authenticated:

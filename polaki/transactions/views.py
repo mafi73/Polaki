@@ -45,17 +45,30 @@ def transactions_list(request):
         # transaction.jalali_date = jdatetime.date.fromgregorian(date=transaction.date)
     return render(request, 'transactions/transaction_list.html', {'transactions': transactions})
 
+
 @login_required
 def update_transaction(request, transaction_id):
     transaction = get_object_or_404(Transaction, id = transaction_id , wallet__user=request.user)
+    wallet = transaction.wallet
+    initial_amount = transaction.amount
     if request.method == 'POST':
-        form = TransactionForm(request.POST, instance=transaction)
+        form = TransactionForm(request.POST, instance=transaction, )
         if form.is_valid():
-            form.save()
-            return redirect('transaction_list')
+            form.save(commit=False)
+        wallet.balance -= initial_amount
+        if form.cleaned_data['transaction_type'] == 'withdraw':
+            transaction.amount= -abs(transaction.amount)
+        else:
+            transaction.amount = abs(transaction.amount)
+        wallet.balance += transaction.amount
+        transaction.save()
+        wallet.save()
+        return redirect('transaction_list')
     else:
+        transaction.amount = abs(transaction.amount)
         form = TransactionForm(instance=transaction)
     return render(request, 'transactions/update_transaction.html', {'form': form})
+
 
 @login_required
 def delet_transaction(request, transaction_id):
