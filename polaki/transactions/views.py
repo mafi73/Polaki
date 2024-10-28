@@ -13,6 +13,7 @@ from django.shortcuts import get_object_or_404
 # Create your views here.
 @login_required
 def add_transaction(request):
+
     if request.method == "POST":
         form = TransactionForm(request.POST)
         if form.is_valid():
@@ -73,7 +74,10 @@ def update_transaction(request, transaction_id):
 @login_required
 def delet_transaction(request, transaction_id):
     transaction = get_object_or_404(Transaction, id = transaction_id , wallet__user=request.user)
+    wallet = transaction.wallet
     if request.method == 'POST':
+        wallet.balance -= transaction.amount
         transaction.delete()
+        wallet.save()
         return redirect('transaction_list')
     return render(request, 'transactions/delete_transaction.html', {'transaction': transaction})
