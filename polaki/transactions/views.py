@@ -40,7 +40,7 @@ def add_transaction(request):
 @login_required
 def transactions_list(request):
     
-    transactions = Transaction.objects.filter(wallet__user=request.user)
+    transactions = Transaction.objects.filter(wallet__user=request.user).order_by('-date')
     # for transaction in transactions:
         # transaction.display_amount = abs(transaction.amount)
         # transaction.jalali_date = jdatetime.date.fromgregorian(date=transaction.date)
