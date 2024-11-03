@@ -1,5 +1,5 @@
 from django import forms
-from .models import Transaction
+from .models import Transaction , Category
 
 class TransactionForm(forms.ModelForm):
     TRANSACTION_CHOICES = [
@@ -33,3 +33,4 @@ class TransactionFilterForm(forms.Form):
     ]
     
     transaction_type = forms.ChoiceField(choices=TRANSACTION_TYPE_CHOICES, required=False, label="نوع تراکنش")
+    category = forms.ModelChoiceField(queryset=Category.objects.all(), required=False, label="دسته بندی")

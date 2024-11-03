@@ -4,7 +4,7 @@ from wallet.models import Wallet
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Transaction
+from .models import Transaction , Category
 from django.shortcuts import get_object_or_404
 
 # import jdatetime
@@ -43,12 +43,15 @@ def transactions_list(request):
 
     transactions = Transaction.objects.filter(wallet__user=request.user).order_by('-date')
     if form.is_valid():
-        transaction_type = form.cleaned_data['transaction_type']
+        transaction_type = form.cleaned_data.get('transaction_type')
+        category = form.cleaned_data.get('category')
         if transaction_type == 'deposit':
             transactions = transactions.filter(amount__gt=0)
         elif transaction_type == 'withdraw':
             transactions = transactions.filter(amount__lt=0)
-
+        
+        if category:
+           transactions = transactions.filter(category=category) 
     # for transaction in transactions:
         # transaction.display_amount = abs(transaction.amount)
         # transaction.jalali_date = jdatetime.date.fromgregorian(date=transaction.date)

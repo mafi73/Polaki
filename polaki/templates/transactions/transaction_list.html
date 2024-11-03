@@ -18,6 +18,8 @@
     <form method="get" action="{% url 'transaction_list' %}">
         {{ form.transaction_type.label }}:
         {{ form.transaction_type }}
+        {{ form.category.label }}:
+        {{ form.category }}
         <button type="submit" class="btn btn-primary">فیلتر</button>
     </form>
 
