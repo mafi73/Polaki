@@ -24,3 +24,12 @@ class TransactionForm(forms.ModelForm):
         if amount == 0:
             raise forms.ValidationError("مقدار تراکنش نمی‌تواند صفر باشد.")
         return amount
+
+class TransactionFilterForm(forms.Form):
+    TRANSACTION_TYPE_CHOICES = [
+        ('all', 'همه'),
+        ('deposit', 'واریز'),
+        ('withdraw', 'برداشت'),
+    ]
+    
+    transaction_type = forms.ChoiceField(choices=TRANSACTION_TYPE_CHOICES, required=False, label="نوع تراکنش")

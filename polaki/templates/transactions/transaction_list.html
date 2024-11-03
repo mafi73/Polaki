@@ -15,6 +15,12 @@
     width: 100%;"
     >لیست تراکنش ها</h1>
     
+    <form method="get" action="{% url 'transaction_list' %}">
+        {{ form.transaction_type.label }}:
+        {{ form.transaction_type }}
+        <button type="submit" class="btn btn-primary">فیلتر</button>
+    </form>
+
     <table class="table table-striped">
         <thead>
             <tr>
