@@ -1,4 +1,4 @@
-A personal accounting application based on Python - Django.
+A personal accounting application based on Python - Django..
 
 
 
