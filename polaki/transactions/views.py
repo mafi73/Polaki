@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Transaction , Category
 from django.shortcuts import get_object_or_404
-
+from django.core.paginator import Paginator
 # import jdatetime
 
 
@@ -49,7 +49,6 @@ def transactions_list(request):
             transactions = transactions.filter(amount__gt=0)
         elif transaction_type == 'withdraw':
             transactions = transactions.filter(amount__lt=0)
-        
         if category:
            transactions = transactions.filter(category=category) 
     # for transaction in transactions:
