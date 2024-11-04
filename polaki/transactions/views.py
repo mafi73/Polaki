@@ -8,7 +8,7 @@ from .models import Transaction , Category
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 # import jdatetime
-
+from django.core.paginator import Paginator
 
 # Create your views here.
 @login_required
@@ -51,10 +51,18 @@ def transactions_list(request):
             transactions = transactions.filter(amount__lt=0)
         if category:
            transactions = transactions.filter(category=category) 
+
+    #تنظیم صفحه بندی:
+    p = Paginator(transactions,5)
+    page = request.GET.get('page')
+    Tlist = p.get_page(page)
+
+
+
     # for transaction in transactions:
         # transaction.display_amount = abs(transaction.amount)
         # transaction.jalali_date = jdatetime.date.fromgregorian(date=transaction.date)
-    return render(request, 'transactions/transaction_list.html', {'transactions': transactions, 'form': form})
+    return render(request, 'transactions/transaction_list.html', {'transactions': transactions, 'form': form, 'Tlist':Tlist})
 
 
 @login_required
