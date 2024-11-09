@@ -44,11 +44,12 @@ def transactions_list(request):
     transactions = Transaction.objects.filter(wallet__user=request.user).order_by('-date')
     if form.is_valid():
         transaction_type = form.cleaned_data.get('transaction_type')
+        
         category = form.cleaned_data.get('category')
         if transaction_type == 'deposit':
-            transactions = transactions.filter(amount__gt=0)
+            transactions = transactions.filter(amount__gt=0) #variz
         elif transaction_type == 'withdraw':
-            transactions = transactions.filter(amount__lt=0)
+            transactions = transactions.filter(amount__lt=0)#bardasht
         if category:
            transactions = transactions.filter(category=category) 
 

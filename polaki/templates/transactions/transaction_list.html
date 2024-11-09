@@ -15,7 +15,8 @@
     width: 100%;"
     >لیست تراکنش ها</h1>
     
-    <form method="get" action="{% url 'transaction_list' %}">
+    <form dir="rtl" 
+    method="get" action="{% url 'transaction_list' %}">
         {{ form.transaction_type.label }}:
         {{ form.transaction_type }}
         {{ form.category.label }}:

@@ -31,6 +31,5 @@ class TransactionFilterForm(forms.Form):
         ('deposit', 'واریز'),
         ('withdraw', 'برداشت'),
     ]
-    
     transaction_type = forms.ChoiceField(choices=TRANSACTION_TYPE_CHOICES, required=False, label="نوع تراکنش")
     category = forms.ModelChoiceField(queryset=Category.objects.all(), required=False, label="دسته بندی")
