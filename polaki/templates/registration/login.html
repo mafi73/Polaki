@@ -8,14 +8,14 @@
 </head>
 <body class="d-flex justify-content-center align-items-center" style="height: 100vh; background-color: #1DA1F2;">
     <div class="card shadow-sm p-4" style="width: 100%; max-width: 400px;">
-        <h2 class="text-center mb-4">ورود به داشبورد</h2>
+        <h2 class="text-center mb-4">ورود به داشبورل</h2>
         <form method="post">
             {% csrf_token %}
             <div class="mb-3">
                 {{ form.as_p }}
             </div>
             <div class="d-grid mb-3">
-                <button type="submit" class="btn btn-primary">ورود</button>
+                <button type="submit" class="btn btn-primary">ورود به داشبورد کیف پول</button>
             </div>
             <div class="text-center">
                 <p>اکانت ندارید؟ <a href="{% url 'signup' %}">ثبت نام کنید</a></p>

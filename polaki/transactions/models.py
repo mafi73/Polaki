@@ -17,7 +17,8 @@ class Transaction(models.Model):
     amount=models.BigIntegerField()
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     description = models.CharField(max_length=255)
-    date = models.DateField(auto_now_add=True)
+    # date = models.DateField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True) #taghir date be datetime baraye moratabsazi bar asase sa@t o zaman
     # transaction_type = models.CharField(max_length=10, choices=[('deposit', 'Deposit'), ('withdraw', 'Withdraw')], default='withdraw')
     
     def display_amount(self):

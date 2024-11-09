@@ -1,14 +1,14 @@
 from django.shortcuts import render , redirect
-from .form import TransactionForm
+from .form import TransactionForm , TransactionFilterForm
 from wallet.models import Wallet
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Transaction
+from .models import Transaction , Category
 from django.shortcuts import get_object_or_404
-
+from django.core.paginator import Paginator
 # import jdatetime
-
+from django.core.paginator import Paginator
 
 # Create your views here.
 @login_required
@@ -39,12 +39,31 @@ def add_transaction(request):
 
 @login_required
 def transactions_list(request):
-    
-    transactions = Transaction.objects.filter(wallet__user=request.user)
+    form = TransactionFilterForm(request.GET or None)
+
+    transactions = Transaction.objects.filter(wallet__user=request.user).order_by('-date')
+    if form.is_valid():
+        transaction_type = form.cleaned_data.get('transaction_type')
+        
+        category = form.cleaned_data.get('category')
+        if transaction_type == 'deposit':
+            transactions = transactions.filter(amount__gt=0) #variz
+        elif transaction_type == 'withdraw':
+            transactions = transactions.filter(amount__lt=0)#bardasht
+        if category:
+           transactions = transactions.filter(category=category) 
+
+    #تنظیم صفحه بندی:
+    p = Paginator(transactions,5)
+    page = request.GET.get('page')
+    Tlist = p.get_page(page)
+
+
+
     # for transaction in transactions:
         # transaction.display_amount = abs(transaction.amount)
         # transaction.jalali_date = jdatetime.date.fromgregorian(date=transaction.date)
-    return render(request, 'transactions/transaction_list.html', {'transactions': transactions})
+    return render(request, 'transactions/transaction_list.html', {'transactions': transactions, 'form': form, 'Tlist':Tlist})
 
 
 @login_required
