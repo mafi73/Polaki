@@ -9,6 +9,9 @@ from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 # import jdatetime
 from django.core.paginator import Paginator
+from rest_framework import viewsets
+from .serializers import TransactionSerializer
+
 
 # Create your views here.
 @login_required
@@ -100,3 +103,7 @@ def delet_transaction(request, transaction_id):
         wallet.save()
         return redirect('transaction_list')
     return render(request, 'transactions/delete_transaction.html', {'transaction': transaction})
+
+# class TransactionViewSet(viewsets.ModelViewSet):
+#     queryset = Transaction.objects.all()
+#     serializer_class = TransactionSerializer
