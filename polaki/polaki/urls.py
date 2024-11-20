@@ -13,8 +13,10 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('wallet/', include('wallet.urls')),
     path('transactions/', include('transactions.urls')),
-    path('signup/', include('users.urls')),
-    path('api/', include('transactions.urls')),
+    path('signup/', include('users.urls')), #html
+    # path('api/', include('transactions.urls')),
+    path('api/transactions/', include('transactions.api_urls')),  # API transactions
+    path('api/users/', include('users.api_urls')),  # API‌ USER
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     ]
