@@ -112,3 +112,47 @@ class TransactionViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Transaction.objects.filter(wallet__user=self.request.user)
+    
+    def perform_create(self, serializer):
+        wallet = serializer.validated_data['wallet']
+        amount = serializer.validated_data['amount']
+
+        #manteghe update dashboard:
+        wallet.balance += amount
+        wallet.save()
+
+        serializer.save(wallet=wallet)
+
+    def destroy(self, request, *args, **kwargs): #manteghe delet tarakonesh va update wallet
+        instance = self.get_object()
+        wallet = instance.wallet
+        transaction_id = instance.id
+        transaction_amount = instance.amount
+        wallet.balance -= transaction_amount
+        wallet.save()
+        self.perform_destroy(instance)
+        return Response(
+            {
+                "message": f"Transaction No.{transaction_id} with amount: {transaction_amount} was deleted. Wallet balance updated to {wallet.balance}."
+            },
+            status=status.HTTP_200_OK
+        )
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        wallet = instance.wallet
+        old_amount = instance.amount
+        new_amount = request.data.get('amount', old_amount)
+        wallet.balance -= old_amount  # حذف تأثیر تراکنش قبلی
+        wallet.balance += int(new_amount)
+        wallet.save()
+        serializer = self.get_serializer(instance, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        return Response(
+            {
+                "message": f"Transaction No.{instance.id} updated successfully. Wallet balance updated to {wallet.balance}.",
+                "transaction": serializer.data
+                 },
+            status=status.HTTP_200_OK
+        )
