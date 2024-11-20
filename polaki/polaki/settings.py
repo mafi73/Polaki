@@ -30,6 +30,16 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',  
+        'rest_framework.renderers.BrowsableAPIRenderer', 
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
+
 INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +51,7 @@ INSTALLED_APPS = [
     'transactions',
     'wallet',
     'rest_framework',
+    'rest_framework.authtoken'
 ]
  
 MIDDLEWARE = [

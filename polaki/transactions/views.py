@@ -7,13 +7,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Transaction , Category
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
-# import jdatetime
-from django.core.paginator import Paginator
-from rest_framework import viewsets
+from rest_framework import viewsets , status
 from .serializers import TransactionSerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 
-# Create your views here.
 @login_required
 def add_transaction(request):
 
@@ -104,6 +104,11 @@ def delet_transaction(request, transaction_id):
         return redirect('transaction_list')
     return render(request, 'transactions/delete_transaction.html', {'transaction': transaction})
 
-# class TransactionViewSet(viewsets.ModelViewSet):
-#     queryset = Transaction.objects.all()
-#     serializer_class = TransactionSerializer
+
+class TransactionViewSet(viewsets.ModelViewSet):
+    queryset = Transaction.objects.all()
+    serializer_class = TransactionSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Transaction.objects.filter(wallet__user=self.request.user)
