@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15  
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: mafi
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: polaki
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  
+    ports:
+      - "5433:5432"  
+
+  web:
+    build:
+      context: .  
+    container_name: django-app
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app  
+    ports:
+      - "8000:8000"  
+    depends_on:
+      - db  
+
+volumes:
+  postgres_data:  
