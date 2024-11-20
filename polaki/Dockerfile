@@ -1,4 +1,4 @@
-FROM hub.hamdocker.ir/python:3.12.3
+FROM python:3.10
 
 WORKDIR /app
 
@@ -12,6 +12,6 @@ RUN python manage.py makemigrations
 
 RUN python manage.py migrate
 
-EXPOSE 8080
+EXPOSE 8000
 
-CMD [ "python", "manage.py", "runserver" , "0.0.0.0:8080"]
+CMD [ "python", "manage.py", "runserver" , "0.0.0.0:8000"]
