@@ -142,7 +142,7 @@ class TransactionViewSet(viewsets.ModelViewSet):
         wallet = instance.wallet
         old_amount = instance.amount
         new_amount = request.data.get('amount', old_amount)
-        wallet.balance -= old_amount  # حذف تأثیر تراکنش قبلی
+        wallet.balance -= old_amount  
         wallet.balance += int(new_amount)
         wallet.save()
         serializer = self.get_serializer(instance, data=request.data)

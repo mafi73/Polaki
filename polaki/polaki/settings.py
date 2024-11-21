@@ -113,13 +113,21 @@ DATABASES = {
     #     'HOST': 'localhost',
     #     'PORT': '5432',
     # }
-    'default': {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'polaki',  
+    #     'USER': 'mafi',    
+    #     'PASSWORD': '1234',  
+    #     'HOST': 'db',      
+    #     'PORT': '5432',    
+    # }
+     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'polaki',  
-        'USER': 'mafi',    
-        'PASSWORD': '1234',  
-        'HOST': 'db',      
-        'PORT': '5432',    
+        'NAME': os.getenv('DATABASE_NAME', 'polaki_new'),
+        'USER': os.getenv('DATABASE_USER', 'mafi2'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', '1234'),
+        'HOST': os.getenv('DATABASE_HOST', 'localhost'),
+        'PORT': os.getenv('DATABASE_PORT', '5432'),
     }
 }
 

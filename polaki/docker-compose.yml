@@ -1,29 +1,36 @@
-version: "3.8"
+version: "3.9"
 
 services:
   db:
-    image: postgres:15  
-    container_name: postgres-db
+    image: postgres:14.5
     environment:
-      POSTGRES_USER: mafi
+      POSTGRES_USER: mafi2
       POSTGRES_PASSWORD: 1234
-      POSTGRES_DB: polaki
-    volumes:
-      - postgres_data:/var/lib/postgresql/data  
+      POSTGRES_DB: polaki_new
     ports:
-      - "5433:5432"  
+      - "5433:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
 
   web:
-    build:
-      context: .  
-    container_name: django-app
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/app  
-    ports:
-      - "8000:8000"  
+    build: .
+    command: >
+      sh -c "python wait_for_db.py &&
+             python manage.py makemigrations &&
+             python manage.py migrate &&
+             gunicorn polaki.wsgi:application --bind 0.0.0.0:8000" --workers 3
     depends_on:
-      - db  
+      - db
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_NAME: polaki_new
+      DATABASE_USER: mafi2
+      DATABASE_PASSWORD: 1234
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
 
 volumes:
-  postgres_data:  
+  db_data:
