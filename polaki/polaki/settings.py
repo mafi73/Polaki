@@ -38,6 +38,9 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
+
+    'DEFAULT_FILTER_BACKENDS': 
+    ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 
 from datetime import timedelta
@@ -62,7 +65,8 @@ INSTALLED_APPS = [
     'transactions',
     'wallet',
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'django_filters',
 ]
  
 MIDDLEWARE = [

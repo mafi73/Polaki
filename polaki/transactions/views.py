@@ -12,7 +12,8 @@ from .serializers import TransactionSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-
+from django_filters.rest_framework import DjangoFilterBackend
+from .filters import TransactionFilter
 
 @login_required
 def add_transaction(request):
@@ -109,6 +110,8 @@ class TransactionViewSet(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
     permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = TransactionFilter
 
     def get_queryset(self):
         return Transaction.objects.filter(wallet__user=self.request.user)
